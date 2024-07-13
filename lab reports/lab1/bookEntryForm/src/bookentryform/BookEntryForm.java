@@ -104,10 +104,9 @@ class BEF {
             String authorD = author_txt.getText();
             String pubD = publication_txt.getText();
             int priceD = Integer.parseInt(price_txt.getText());
-            String priceStr = Integer.toString(priceD);
 
-            if (!titleD.isEmpty() && !authorD.isEmpty() && !pubD.isEmpty() && !priceStr.isEmpty()) {
-                String insertQuery = "INSERT INTO book_info (title, author, publication, price) VALUES ('" + titleD + "', '" + authorD + "', '" + pubD + "', '" + priceStr + "')";
+            if (!titleD.isEmpty() && !authorD.isEmpty() && !pubD.isEmpty() && priceD >0 ) {
+                String insertQuery = "INSERT INTO book_info (title, author, publication, price) VALUES ('" + titleD + "', '" + authorD + "', '" + pubD + "', '" + priceD + "')";
                 stmt.execute(insertQuery);
                 JOptionPane.showMessageDialog(frame, "Record inserted successfully.");
                 selectRecord();
@@ -133,7 +132,7 @@ class BEF {
             //        title_txt, author_txt, publication_txt, price_txt;
             Statement stmt = conn.createStatement();
 
-            String deleteQuery = "DELETE FROM book_info WHERE id = " + n;
+            String deleteQuery = "DELETE FROM book_info WHERE id = "+ n +"" ;
             stmt.execute(deleteQuery);
 
             JOptionPane.showMessageDialog(frame, "Record Deleted Succesfully successfully....");
@@ -166,7 +165,7 @@ class BEF {
             String authorD = authorField.getText();
             String pubD = pubField.getText();
             int priceD = Integer.parseInt(priceField.getText());
-            String priceStr = Integer.toString(priceD);
+            
 
             try {
                 Class.forName("com.mysql.jdbc.Driver");
@@ -176,8 +175,8 @@ class BEF {
                 Connection conn = DriverManager.getConnection(URL, username, password);
                 Statement stmt = conn.createStatement();
 
-                if (!id.isEmpty() && !titleD.isEmpty() && !authorD.isEmpty() && !pubD.isEmpty() && !priceStr.isEmpty()) {
-                    String updateQuery = "UPDATE book_info SET title = '" + titleD + "', author = '" + authorD + "', publication = '" + pubD + "', price = '" + priceStr + "' WHERE id = " + id;
+                if (!id.isEmpty() && !titleD.isEmpty() && !authorD.isEmpty() && !pubD.isEmpty() && priceD > 0) {
+                    String updateQuery = "UPDATE book_info SET title = '" + titleD + "', author = '" + authorD + "', publication = '" + pubD + "', price = '" + priceD + "' WHERE id = " + id;
                     stmt.execute(updateQuery);
                     JOptionPane.showMessageDialog(frame, "Record updated successfully.");
                     selectRecord();
